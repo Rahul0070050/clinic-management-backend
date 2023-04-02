@@ -1,13 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 require("dotenv");
 
 const connect = require("./src/connection/db");
 
 //routes imports
 const userRoutes = require("./src/routes/userRoute");
-const bodyParser = require("body-parser");
-// const doctorRoutes = require("./src/routes/doctorRoute");
+const doctorRoutes = require("./src/routes/doctorRoute");
 
 const app = express()
 
@@ -33,6 +33,6 @@ app.set(connect((err) => {
 
 // setup routes
 app.use('/api/user',userRoutes)
-// app.use('/api/doctor',doctorRoutes)
+app.use('/api/doctor',doctorRoutes)
 
 app.listen(5000, () => console.log("server started"))
