@@ -6,6 +6,8 @@ require("dotenv").config();
 const Users = require("../model/User");
 const { EMAILREGEX, checkPasswordHasSpecialCharacters, stringHasAnyNumber } = require("../utils/constants");
 const { checkPassword } = require("../helpers/userHelper");
+const Doctors = require("../model/Doctor");
+const Slots = require("../model/Slote");
 
 module.exports = {
     signup: (req, res) => {
@@ -87,6 +89,7 @@ module.exports = {
                         gender,
                         password,
                     }).save().then(async (response) => {
+                        delete req.body.password
                         const token = await jwt.sign({ ...req.body }, process.env.KEY)
                         res.status(200).json({ token })
                     })
@@ -105,13 +108,14 @@ module.exports = {
             }
 
             Users.find({ email }).then(async (user) => {
+                console.log(email);
                 if (user.length <= 0) {
-                    return res.status(406).json({ message: "user mot found" })
+                    return res.status(406).json({type:'email', message: "user mot found" })
                 } else {
                     user = user[0];
                     if (checkPassword(password, user.password)) {
                         const token = await jwt.sign({ ...user }, process.env.KEY)
-                        return res.status(200).json({ token })
+                        return res.status(200).json({ token, user })
                     } else {
                         return res.status(401).json({ type: "password", message: "incurrent password" })
                     }
@@ -121,5 +125,21 @@ module.exports = {
             console.log(error);
             return res.status(500).json({ message: error.message })
         }
+    },
+    getAllDoctors:(req,res) => {
+        return new Promise((resolve, reject) => {
+          Doctors.find({}).then(response => {
+            for (let i = 0; i < response.length; i++) {
+                delete response[i].password
+            }
+            res.status(200).json({doctors:response})
+          })
+        })
+        
+    },
+    getSlots: (req, res) => {
+        Slots.find({}).then(response => {
+            res.status(200).json({ slots: response })
+        })
     }
 }

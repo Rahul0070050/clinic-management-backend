@@ -8,23 +8,24 @@ const connect = require("./src/connection/db");
 //routes imports
 const userRoutes = require("./src/routes/userRoute");
 const doctorRoutes = require("./src/routes/doctorRoute");
+const adminRoutes = require("./src/routes/adminRoutes");
 
 const app = express()
 
 
 app.use(cors({
     origin: ["http://localhost:5173"],
-    methods: ["GET","POST","PUT","DELETE","PATCH"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true
 }))
 
 app.use(express.json());
-app.use(bodyParser({extended: false}));
-app.use(express.urlencoded({extended: true}));
+app.use(bodyParser({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // db connection
 app.set(connect((err) => {
-    if(err) {
+    if (err) {
         console.log(err.message);
         return;
     }
@@ -32,7 +33,14 @@ app.set(connect((err) => {
 }))
 
 // setup routes
-app.use('/api/user',userRoutes)
-app.use('/api/doctor',doctorRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/doctor', doctorRoutes)
+app.use('/api/admin', adminRoutes)
+
+// error handler
+app.use("*", (err, req, res, next) => {
+    console.error(err.stack)
+    next(err)
+})
 
 app.listen(5000, () => console.log("server started"))
