@@ -33,7 +33,7 @@ app.set(connect((err) => {
 }))
 
 // setup routes
-app.use('/api/user', userRoutes)
+app.use('/api/user', userRoutes) 
 app.use('/api/doctor', doctorRoutes)
 app.use('/api/admin', adminRoutes)
 
@@ -43,4 +43,4 @@ app.use("*", (err, req, res, next) => {
     next(err)
 })
 
-app.listen(5000, () => console.log("server started"))
+app.listen(5000, () => console.log("server started", 5000))

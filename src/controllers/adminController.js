@@ -5,7 +5,8 @@ const Doctors = require("../model/Doctor");
 const Users = require("../model/User");
 
 const { checkPasswordHasSpecialCharacters, EMAILREGEX, stringHasAnyNumber } = require("../utils/constants");
-
+const { Types: { ObjectId } } = require("mongoose");
+const Patients = require("../model/patients");
 module.exports = {
     login: async (req, res) => {
         const { username, password } = req.body
@@ -94,14 +95,92 @@ module.exports = {
             res.status(200).json({ allDoctors: response })
         })
     },
-    getAllPatients:(req,res) => {
-        Users.find({}).then(response => {
+    getAllPatients: (req, res) => {
+        Patients.find({}).then(response => {
             res.status(200).json({ allPatients: response })
         })
     },
-    getAllUser:(req,res) => {
+    getAllUser: (req, res) => {
         Users.find({}).then(response => {
             res.status(200).json({ users: response })
+        })
+    },
+    getDoctor: (req, res) => {
+        const { id } = req.params
+        Doctors.findById(id).then(response => {
+            delete response.password
+            res.status(200).json({ doctor: response })
+        })
+    },
+    updateDoctor: (req, res) => {
+        let doctorError = {
+            CTC: "",
+            age: "",
+            department: "",
+            email: "",
+            experience: "",
+            mobile: "",
+            username: "",
+            id: ""
+        }
+
+        let {
+            CTC,
+            age,
+            department,
+            email,
+            experience,
+            mobile,
+            username,
+            _id } = req.body
+
+
+        if (CTC == "" || experience == "" || age == "" || username == "" || email == "" || mobile == "" || department == "") {
+            for (const key in req.body) {
+                if (req.body[key] == "") {
+                    doctorError[key] = "please provide "
+                } else {
+                    delete doctorError[key]
+                }
+            }
+            res.status(406).json({ ...doctorError })
+            return
+        } else {
+
+            if (mobile.length > 10 || mobile.length < 10) {
+                res.status(406).json({ mobile: "please provide valid " })
+                return
+            }
+
+            try {
+
+                Doctors.findOne({ username }).then(response => {
+                    if (response && response._id != _id) {
+                        return res.status(409).json({ username: "already exist " });
+                    } else {
+                        Doctors.updateOne({ _id: new ObjectId(_id) }, {
+                            $set: {
+                                CTC,
+                                age,
+                                department,
+                                email,
+                                experience,
+                                mobile,
+                                username,
+                            }
+                        }).then(response => {
+                            res.status(200).json({ ok: true })
+                        })
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    },
+    deleteDoctor: (req,res) => {
+        Doctors.deleteOne({_id: new ObjectId(_id)}).then(result => {
+            console.log(result);
         })
     }
 }
