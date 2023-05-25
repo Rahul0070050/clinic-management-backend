@@ -9,6 +9,7 @@ const Doctor = new mongoose.Schema({
     CTC: String,
     age: String,
     experience: String,
+    block: Boolean,
 })
 
 const Doctors = mongoose.model("doctors", Doctor);

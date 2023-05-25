@@ -6,7 +6,7 @@ module.exports = function verifyToken(token) {
             if (err) {
                 reject(err)
             } else {
-                resolve(decoded.response)
+                resolve(decoded._doc)
             }
         });
     })
