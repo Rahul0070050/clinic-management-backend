@@ -104,9 +104,10 @@ module.exports = {
         }
     },
     getAllDoctors: (req, res) => {
+        const { count } = req.body
         try {
-            Doctors.find({}).then(response => {
-                res.status(200).json({ allDoctors: response })
+            Doctors.find({}).skip(count).limit(11).then(response => {
+                res.status(200).json({ allDoctors: response, totalCount: response.length })
             })
         } catch (error) {
             res.status(500).json("server Error")
@@ -224,7 +225,7 @@ module.exports = {
     getAppointments: (req, res) => {
         try {
             Appointments.find({ status: "new" }).then(result => {
-                res.status(200).json(result)
+                res.status(200).json({ appointments: result, count: result.length })
             })
         } catch (error) {
             res.status(500).json("server Error")
@@ -335,16 +336,18 @@ module.exports = {
         try {
             Users.find({}).count().then(usersCount => {
                 Patients.find({}).count().then(patientsCount => {
-                    Departments.find({}).count().then(departmentCount => {
-                        Doctors.find({}).count().then(doctorsCount => {
+                    Departments.find({}).then(departmentCount => {
+                        Doctors.find({}).then(doctorsCount => {
                             Appointments.find({}).count().then(appointmentsCount => {
-                                res.status(200).json([
+                                res.status(200).json([[
                                     { name: "users", count: usersCount },
                                     { name: "patients", count: patientsCount },
-                                    { name: "doctors", count: doctorsCount },
-                                    { name: "department", count: departmentCount },
+                                    { name: "doctors", count: doctorsCount.length },
+                                    { name: "department", count: departmentCount.length },
                                     { name: "Bookings", count: appointmentsCount },
-                                ])
+                                ], [
+                                    doctorsCount, departmentCount
+                                ]])
                             })
                         })
                     })

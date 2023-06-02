@@ -114,6 +114,23 @@ module.exports = {
             res.status(500).json("server Error")
         }
     },
+    checkUserExist: (req, res) => {
+        try {
+            let { email, mobile } = req.body
+            console.log(req.body);
+            Users.findOne({ $or: [{ email }, { mobile }] }).then(response => {
+                if (response?.email == email) {
+                    return res.status(409).json({ email: "email already exist" });
+                } else if (response?.mobile == mobile) {
+                    return res.status(409).json({ mobile: "mobile already exist" });
+                } else {
+                    return res.status(200).json({ ok: true });
+                }
+            })
+        } catch (error) {
+            res.status(500).json("server Error")
+        }
+    },
     login: (req, res) => {
         try {
             try {
@@ -322,18 +339,24 @@ module.exports = {
             let date = new Date()
             date.setUTCHours(0, 0, 0, 0);
 
-            let day = date.getDate() < 10 ? `0${date.getDate() - 1}` : date.getDate() - 1
+            let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
             let month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
             let year = date.getFullYear()
-
+            
             const newDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
+            console.log(day,month,year);
 
             Appointments.find({ $and: [{ appointmentDate: { $lt: newDate } }, { userId: { $eq: id } }] }).then(oldAppointments => {
                 Appointments.find({ $and: [{ appointmentDate: { $gte: newDate } }, { userId: { $eq: id } }] }).then(newAppointments => {
                     res.status(200).json({ oldAppointments, newAppointments })
+                }).catch(err => {
+                    console.log(err);
                 })
+            }).catch(err => {
+                console.log(err);
             })
         } catch (error) {
+            console.log(error);
             res.status(500).json("server Error")
         }
     },
