@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 module.exports = function connect(done) {
     try {
-        mongoose.connect('mongodb://localhost:27017/clinicManagement', {
+        mongoose.connect(`${process.env.MONGODB_CONNECTION}/clinic`, {
             useUnifiedTopology: true
         }).then((res) => {
             done()
