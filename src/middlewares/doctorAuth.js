@@ -10,7 +10,7 @@ function doctorAuth(req, res, next) {
         const { _id } = jwt.decode(token)?.response
 
         Doctors.findById(_id).then(result => {
-            if (result.block) {
+            if (result?.block) {
                 res.status(400).json({ block: true })
             }
             else {

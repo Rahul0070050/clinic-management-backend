@@ -79,7 +79,7 @@ module.exports = {
             try {
 
                 Users.find({ $or: [{ email }, { mobile }] }).then(response => {
-                    if (response.length > 0) {
+                    if (response?.length > 0) {
                         if (response[0].email == email) {
                             return res.status(409).json({ email: "email already exist" });
                         } else {
@@ -99,7 +99,6 @@ module.exports = {
                             password,
                             block: false
                         }).save().then(async (response) => {
-                            delete req.body.password
                             console.log(response);
                             const token = await jwt.sign({ ...response }, process.env.KEY)
                             res.status(200).json({ token })
