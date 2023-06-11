@@ -13,7 +13,7 @@ const adminRoutes = require("./src/routes/adminRoutes");
 const app = express()
 
 app.use(cors({
-    origin: ["*"],
+    origin: ["https://clinic-management-kk67.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true
 }))
