@@ -32,6 +32,9 @@ module.exports = {
                 if (!response) {
                     return res.status(401).json({ username: "user not fount" })
                 }
+                if (!response.block) {
+                    return res.status(401).json({ username: "user blocked" })
+                }
                 if (passwordHash.verify(password, response.password)) {
                     response.password = ""
                     const token = await jwt.sign({ response }, process.env.KEY)
