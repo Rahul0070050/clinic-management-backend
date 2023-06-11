@@ -5,7 +5,7 @@ const adminAuth = require("../middlewares/adminAuth");
 
 const router = express.Router();
 
-router.post('/login', adminAuth, adminController.login);
+router.post('/login', adminController.login);
 router.post('/add-doctor', adminAuth, adminController.addDoctor);
 router.get('/get-all-doctors', adminAuth, adminController.getAllDoctors);
 router.get('/get-all-patients', adminAuth, adminController.getAllPatients);

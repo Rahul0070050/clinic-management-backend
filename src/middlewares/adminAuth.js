@@ -1,7 +1,7 @@
 const verifyToken = require("../utils/verifyToken");
 
 function adminAuth(req, res, next) {
-    let token = req.headers.authorization.split(' ')[1];
+    let token = req.headers?.authorization?.split(' ')[1];
     verifyToken(token).then(() => {
         next()
     }).catch(() => {
