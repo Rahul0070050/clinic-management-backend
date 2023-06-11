@@ -20,9 +20,9 @@ router.post('/add-department', adminAuth, adminController.addDepartment);
 router.get('/get-all-department', adminAuth, adminController.getAllDepartment);
 router.get('/delate-department/:id', adminAuth, adminController.deleteDepartment);
 router.post('/edit-department', adminAuth, adminController.editDepartment);
-router.get('/block-user/:id', adminController.blockUser);
-router.get('/get-info', adminController.getInfo);
-router.get('/get-departments', adminController.getDepartments);
-router.get('/block-doctor/:id', adminController.blockDoctor);
+router.get('/block-user/:id', adminAuth, adminController.blockUser);
+router.get('/get-info', adminAuth, adminController.getInfo);
+router.get('/get-departments', adminAuth, adminController.getDepartments);
+router.get('/block-doctor/:id', adminAuth, adminController.blockDoctor);
 
 module.exports = router;
