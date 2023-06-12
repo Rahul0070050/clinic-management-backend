@@ -13,7 +13,7 @@ const adminRoutes = require("./src/routes/adminRoutes");
 const app = express()
 
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://joyful-biscuit-543c68.netlify.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true
 }))
