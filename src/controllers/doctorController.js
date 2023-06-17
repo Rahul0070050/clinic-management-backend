@@ -313,5 +313,19 @@ module.exports = {
         } catch (error) {
             res.status(500).json("server Error")
         }
-    }
+    },
+    checkMobileNumber: (req, res) => {
+        try {
+            const { mobile } = req.params;
+            Doctors.find({ mobile }).then(result => {
+                if (result.length <= 0) {
+                    res.status(406).json({ ok: false, mobile: "mobile number not found" })
+                } else {
+                    res.status(200).json({ ok: true })
+                }
+            })
+        } catch (error) {
+            res.status(500).json("server Error")
+        }
+    },
 }

@@ -20,5 +20,6 @@ router.get('/delete-patient/:id', doctorAuth, doctorController.deletePatients);
 router.get('/get-patient-info/:id', doctorAuth, doctorController.getPatientInfo);
 router.get('/get-todays-appointments', doctorAuth, doctorController.getTodaysAppointments);
 router.get('/get-profile', doctorAuth, doctorController.getProfile);
+router.get('/check-mobile/:mobile', doctorController.checkMobileNumber);
 
 module.exports = router;
