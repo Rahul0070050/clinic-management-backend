@@ -28,7 +28,11 @@ module.exports = {
                 }
                 return res.status(406).json({ ...errMessage })
             }
+            
             Doctors.findOne({ username }).then(async response => {
+                if (response?.block) {
+                    return res.status(400).json({ username: "this user has been blocked" })
+                }
                 if (!response) {
                     return res.status(401).json({ username: "user not fount" })
                 }

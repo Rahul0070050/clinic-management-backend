@@ -139,6 +139,10 @@ module.exports = {
                 }
 
                 Users.find({ email }).then(async (user) => {
+                    console.log(user);
+                    if (user?.block) {
+                        return res.status(400).json({ type: 'email', message: "this user has been blocked" })
+                    }
                     if (user.length <= 0) {
                         return res.status(406).json({ type: 'email', message: "user mot found" })
                     } else {
@@ -341,9 +345,9 @@ module.exports = {
             let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
             let month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
             let year = date.getFullYear()
-            
+
             const newDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
-            console.log(day,month,year);
+            console.log(day, month, year);
 
             Appointments.find({ $and: [{ appointmentDate: { $lt: newDate } }, { userId: { $eq: id } }] }).then(oldAppointments => {
                 Appointments.find({ $and: [{ appointmentDate: { $gte: newDate } }, { userId: { $eq: id } }] }).then(newAppointments => {

@@ -89,7 +89,9 @@ module.exports = {
                             req.body.password = passwordHash.generate(req.body.password)
                             new Doctors({
                                 ...req.body,
-                                block: false
+                                block: false,
+                                socialMediaLinkOne: "",
+                                socialMediaLinkTwo: ""
                             }).save().then(response => {
                                 Departments.updateOne({ name: department }, { $inc: { doctorsCount: 1 } }).then(() => { })
                                 res.status(200).json({ ok: true })

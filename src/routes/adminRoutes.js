@@ -14,7 +14,6 @@ router.get('/get-doctor/:id', adminAuth, adminController.getDoctor);
 router.post('/update-doctor', adminAuth, adminController.updateDoctor);
 router.get('/get-appointments', adminAuth, adminController.getAppointments);
 router.get('/cancel-appointment/:id', adminAuth, adminController.cancelAppointment);
-// router.get('/delete-user/:id', adminAuth, adminController.deleteUser);
 router.get('/get-all-payments', adminAuth, adminController.getAllPayments);
 router.post('/add-department', adminAuth, adminController.addDepartment);
 router.get('/get-all-department', adminAuth, adminController.getAllDepartment);

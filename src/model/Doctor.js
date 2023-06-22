@@ -9,6 +9,8 @@ const Doctor = new mongoose.Schema({
     CTC: String,
     age: String,
     experience: String,
+    socialMediaLinkOne: String,
+    socialMediaLinkTwo: String,
     block: Boolean,
 })
 
