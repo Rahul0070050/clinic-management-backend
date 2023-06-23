@@ -40,6 +40,7 @@ module.exports = {
                 return res.status(401).json({ username: "username is invalid" })
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -103,6 +104,7 @@ module.exports = {
                 }
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -113,6 +115,7 @@ module.exports = {
                 res.status(200).json({ allDoctors: response, totalCount: response.length })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -122,6 +125,7 @@ module.exports = {
                 res.status(200).json({ allPatients: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -132,6 +136,7 @@ module.exports = {
                 res.status(200).json({ users: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -143,6 +148,7 @@ module.exports = {
                 res.status(200).json({ doctor: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -209,10 +215,11 @@ module.exports = {
                         }
                     })
                 } catch (error) {
-                    logger.info(error);
+                    logger.error(error);
                 }
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -222,6 +229,7 @@ module.exports = {
                 logger.info(result);
             })
         } catch (error) {
+            logger.error(error);
             res.status(500).json("server Error")
         }
     },
@@ -231,6 +239,7 @@ module.exports = {
                 res.status(200).json({ appointments: result, count: result.length })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -245,6 +254,7 @@ module.exports = {
                 return res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -254,6 +264,7 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -263,6 +274,7 @@ module.exports = {
                 res.status(200).json({ result: result })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -272,6 +284,7 @@ module.exports = {
                 res.status(200).json({ allDepartments: result })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -286,6 +299,7 @@ module.exports = {
                 res.status(200).json({ ok: true, result })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -295,6 +309,7 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -306,13 +321,13 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
     blockUser: (req, res) => {
         try {
             const { id } = req.params;
-            logger.info(id);
             Users.updateOne({ _id: new ObjectId(id) },
                 [
                     {
@@ -332,6 +347,7 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -357,6 +373,7 @@ module.exports = {
                 })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -366,6 +383,7 @@ module.exports = {
                 res.status(200).json({ departments })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -392,6 +410,7 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     }

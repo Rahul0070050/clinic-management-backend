@@ -107,10 +107,12 @@ module.exports = {
                     }
                 })
             } catch (error) {
+                logger.error(error)
                 throw new Error(error)
             }
 
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -128,6 +130,7 @@ module.exports = {
                 }
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -157,9 +160,11 @@ module.exports = {
                     }
                 })
             } catch (error) {
+                logger.error(error)
                 return res.status(500).json({ message: error.message })
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -175,6 +180,7 @@ module.exports = {
             })
 
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -184,12 +190,12 @@ module.exports = {
                 res.status(200).json({ slots: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
     bookAppointment: (req, res) => {
         try {
-            logger.info(req.body);
             const {
                 firstName,
                 lastName,
@@ -280,6 +286,7 @@ module.exports = {
                 })
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -301,6 +308,7 @@ module.exports = {
                 })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -315,6 +323,7 @@ module.exports = {
                 }
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -330,6 +339,7 @@ module.exports = {
                 })
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -360,7 +370,7 @@ module.exports = {
                 logger.info(err);
             })
         } catch (error) {
-            logger.info(error);
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -371,6 +381,7 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     }

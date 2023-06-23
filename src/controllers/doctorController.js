@@ -49,6 +49,7 @@ module.exports = {
                 }
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -59,6 +60,7 @@ module.exports = {
                 res.status(200).json({ info })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -85,6 +87,7 @@ module.exports = {
                 }
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -100,6 +103,7 @@ module.exports = {
             })
 
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -109,6 +113,7 @@ module.exports = {
                 res.status(200).json({ slots: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -122,6 +127,7 @@ module.exports = {
                 res.status(200).json({ dates: dates })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -147,9 +153,10 @@ module.exports = {
                 logger.info(result);
                 res.status(200).json(result)
             }).catch(err => {
-                logger.info(err);
+                logger.error(err);
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -160,6 +167,7 @@ module.exports = {
                 res.status(200).json({ info: result })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -229,6 +237,7 @@ module.exports = {
                 })
             }
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -242,6 +251,7 @@ module.exports = {
                 return res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -256,6 +266,7 @@ module.exports = {
                 res.status(200).json({ allPatients: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -266,6 +277,7 @@ module.exports = {
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -277,6 +289,7 @@ module.exports = {
                 res.status(200).json({ patient: response })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -302,6 +315,7 @@ module.exports = {
                 res.status(200).json({ result })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -316,6 +330,7 @@ module.exports = {
                 })
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
@@ -330,6 +345,7 @@ module.exports = {
                 }
             })
         } catch (error) {
+            logger.error(error)
             res.status(500).json("server Error")
         }
     },
