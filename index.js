@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-require("dotenv");
+const logger = require('./src/utils/logger');
 
 const connect = require("./src/connection/db");
 
@@ -11,6 +11,8 @@ const doctorRoutes = require("./src/routes/doctorRoute");
 const adminRoutes = require("./src/routes/adminRoutes");
 
 const app = express()
+
+require("dotenv");
 
 app.use(cors({
     origin: ["https://joyful-biscuit-543c68.netlify.app", "http://localhost:5173"],
@@ -25,10 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 // db connection
 app.set(connect((err) => {
     if (err) {
-        // console.log(err.message);
+        logger.info(err.message);
         return;
     }
-    // console.log("db connected");
+    logger.info("db connected");
 }))
 
 // setup routes
@@ -38,8 +40,8 @@ app.use('/api/admin', adminRoutes)
 
 // error handler
 app.use("*", (err, req, res, next) => {
-    console.error(err.stack)
+    logger.info(err.stack)
     next(err)
 })
 
-app.listen(5000, () => console.log("server started", 5000))
+app.listen(5000, () => logger.info(`server started ${5000}`))

@@ -10,6 +10,7 @@ const Patients = require("../model/Patients");
 const Appointments = require("../model/Appointments");
 const Payments = require("../model/Payments");
 const Departments = require("../model/Departments");
+const logger = require("../utils/logger");
 module.exports = {
     login: async (req, res) => {
         try {
@@ -127,7 +128,7 @@ module.exports = {
     getAllUser: (req, res) => {
         try {
             Users.find({}).then(response => {
-                // console.log(response);
+                logger.info(response);
                 res.status(200).json({ users: response })
             })
         } catch (error) {
@@ -208,7 +209,7 @@ module.exports = {
                         }
                     })
                 } catch (error) {
-                    // console.log(error);
+                    logger.info(error);
                 }
             }
         } catch (error) {
@@ -218,7 +219,7 @@ module.exports = {
     deleteDoctor: (req, res) => {
         try {
             Doctors.deleteOne({ _id: new ObjectId(_id) }).then(result => {
-                // console.log(result);
+                logger.info(result);
             })
         } catch (error) {
             res.status(500).json("server Error")
@@ -235,7 +236,7 @@ module.exports = {
     },
     cancelAppointment: (req, res) => {
         try {
-            // console.log(req.body.params);
+            logger.info(req.body.params);
             Appointments.updateOne({ _id: new ObjectId(req.params.id) }, {
                 $set: {
                     status: "canceled"
@@ -299,7 +300,7 @@ module.exports = {
     },
     editDepartment: (req, res) => {
         try {
-            // console.log(req.body);
+            logger.info(req.body);
             const { departmentName, id } = req.body
             Departments.updateOne({ _id: new ObjectId(id) }, { $set: { name: departmentName } }).then(result => {
                 res.status(200).json({ ok: true })
@@ -311,7 +312,7 @@ module.exports = {
     blockUser: (req, res) => {
         try {
             const { id } = req.params;
-            // console.log(id);
+            logger.info(id);
             Users.updateOne({ _id: new ObjectId(id) },
                 [
                     {
@@ -327,7 +328,7 @@ module.exports = {
                     }
                 ]
             ).then(result => {
-                // console.log(result);
+                logger.info(result);
                 res.status(200).json({ ok: true })
             })
         } catch (error) {
@@ -371,7 +372,7 @@ module.exports = {
     blockDoctor: (req, res) => {
         try {
             const { id } = req.params;
-            // console.log(id);
+            logger.info(id);
             Doctors.updateOne({ _id: new ObjectId(id) },
                 [
                     {
@@ -387,7 +388,7 @@ module.exports = {
                     }
                 ]
             ).then(result => {
-                // console.log(result);
+                logger.info(result);
                 res.status(200).json({ ok: true })
             })
         } catch (error) {

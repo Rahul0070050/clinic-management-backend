@@ -9,6 +9,7 @@ const Doctors = require("../model/Doctor");
 const Slots = require("../model/Slote");
 const Patients = require("../model/Patients");
 const Departments = require("../model/Departments");
+const logger = require("../utils/logger");
 
 module.exports = {
     login: async (req, res) => {
@@ -137,16 +138,16 @@ module.exports = {
             let month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
             let year = date.getFullYear()
             const myDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
-            // console.log(myDate);
+            logger.info(myDate);
 
             const startDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
             const endDate = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
 
             Appointments.find({ doctorName: username }).then(result => {
-                // console.log(result);
+                logger.info(result);
                 res.status(200).json(result)
             }).catch(err => {
-                // console.log(err);
+                logger.info(err);
             })
         } catch (error) {
             res.status(500).json("server Error")
