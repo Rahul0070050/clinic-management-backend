@@ -23,7 +23,7 @@ export default async function sendEmail(email,url) {
     html: "<b>Hello world?</b>", 
   });
 
-  console.log("Message sent: %s", info.messageId);
+  // console.log("Message sent: %s", info.messageId);
 
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }

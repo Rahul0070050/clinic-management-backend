@@ -137,16 +137,16 @@ module.exports = {
             let month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
             let year = date.getFullYear()
             const myDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
-            console.log(myDate);
+            // console.log(myDate);
 
             const startDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
             const endDate = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
 
             Appointments.find({ doctorName: username }).then(result => {
-                console.log(result);
+                // console.log(result);
                 res.status(200).json(result)
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         } catch (error) {
             res.status(500).json("server Error")

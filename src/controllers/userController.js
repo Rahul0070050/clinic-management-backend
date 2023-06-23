@@ -99,7 +99,7 @@ module.exports = {
                             password,
                             block: false
                         }).save().then(async (response) => {
-                            console.log(response);
+                            // console.log(response);
                             const token = await jwt.sign({ ...response }, process.env.KEY)
                             res.status(200).json({ token })
                         })
@@ -116,7 +116,7 @@ module.exports = {
     checkUserExist: (req, res) => {
         try {
             let { email, mobile } = req.body
-            console.log(req.body);
+            // console.log(req.body);
             Users.findOne({ $or: [{ email }, { mobile }] }).then(response => {
                 if (response?.email == email) {
                     return res.status(409).json({ email: "email already exist" });
@@ -139,7 +139,7 @@ module.exports = {
                 }
 
                 Users.find({ email }).then(async (user) => {
-                    console.log(user);
+                    // console.log(user);
                     if (user?.block) {
                         return res.status(400).json({ type: 'email', message: "this user has been blocked" })
                     }
@@ -188,7 +188,7 @@ module.exports = {
     },
     bookAppointment: (req, res) => {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             const {
                 firstName,
                 lastName,
@@ -347,19 +347,19 @@ module.exports = {
             let year = date.getFullYear()
 
             const newDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
-            console.log(day, month, year);
+            // console.log(day, month, year);
 
             Appointments.find({ $and: [{ appointmentDate: { $lt: newDate } }, { userId: { $eq: id } }] }).then(oldAppointments => {
                 Appointments.find({ $and: [{ appointmentDate: { $gte: newDate } }, { userId: { $eq: id } }] }).then(newAppointments => {
                     res.status(200).json({ oldAppointments, newAppointments })
                 }).catch(err => {
-                    console.log(err);
+                    // console.log(err);
                 })
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             res.status(500).json("server Error")
         }
     },

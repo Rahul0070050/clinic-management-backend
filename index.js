@@ -25,10 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 // db connection
 app.set(connect((err) => {
     if (err) {
-        console.log(err.message);
+        // console.log(err.message);
         return;
     }
-    console.log("db connected");
+    // console.log("db connected");
 }))
 
 // setup routes
